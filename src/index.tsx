@@ -8,7 +8,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from './App';
 import statsReducer from './reducers/stats';
-import * as serviceWorker from './serviceWorker';
 
 const initialStore = {
     selectedCpu: 'cpu0',
@@ -73,8 +72,3 @@ ReactDOM.render(
         <App />
     </Provider>, 
 document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
