@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type LabelPropsType = {
   children: string;
@@ -8,10 +8,15 @@ type LabelPropsType = {
 
 const LabelDiv = styled.div`
   color: gray;
+  ${props =>
+    props.onClick &&
+    css`
+      cursor: pointer;
+    `}
 `;
 
 const Label = ({ children, onClick }: LabelPropsType) => (
-  <LabelDiv className="Label" onClick={() => onClick && onClick()}>
+  <LabelDiv className="Label" onClick={onClick ? () => onClick() : undefined}>
     {children}
   </LabelDiv>
 );

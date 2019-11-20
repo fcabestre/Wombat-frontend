@@ -5,24 +5,24 @@ import styled from "styled-components";
 import { Cpu } from "./store/stats";
 
 type CpuStatsPropType = {
-  cpu: Cpu;
+  cpu?: Cpu;
   className?: string;
 };
 
-const CpuStats = ({
-  className,
-  cpu: { user, nice, system, iowait, idle, irq, softirq }
-}: CpuStatsPropType) => (
-  <div className={className}>
-    <Label>{String(user)}</Label>
-    <Label>{String(nice)}</Label>
-    <Label>{String(system)}</Label>
-    <Label>{String(iowait)}</Label>
-    <Label>{String(idle)}</Label>
-    <Label>{String(irq)}</Label>
-    <Label>{String(softirq)}</Label>
-  </div>
-);
+const CpuStats = ({ className, cpu }: CpuStatsPropType) =>
+  cpu ? (
+    <div className={className}>
+      <Label>{String(cpu.user)}</Label>
+      <Label>{String(cpu.nice)}</Label>
+      <Label>{String(cpu.system)}</Label>
+      <Label>{String(cpu.iowait)}</Label>
+      <Label>{String(cpu.idle)}</Label>
+      <Label>{String(cpu.irq)}</Label>
+      <Label>{String(cpu.softirq)}</Label>
+    </div>
+  ) : (
+    <div></div>
+  );
 
 export default styled(CpuStats)`
   grid-area: main;
