@@ -1,14 +1,27 @@
-import { connect } from 'react-redux';
+import React from 'react';
+import styled from 'styled-components';
 
-import CpuList from './CpuList';
-import { Store } from './store/stats';
+import Sidebar from './Sidebar';
+import Main from './Main';
 
-const mapStateToProps = (state: Store) => ({cpuNames: state.cpuStats.map( ({ name }) => name ) } )
+const AppLayout = styled.div`
+  display: grid;
+  grid-template-columns: 25vw auto;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "header header header header"
+    "sidebar main main main"
+    "footer footer footer footer";
+  margin: 10px
+  border: 5px solid gray;
+  border-radius: 5px;
+`
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {};
-};
-
-const App = connect(mapStateToProps, mapDispatchToProps)(CpuList);
+const App = () => (
+  <AppLayout>
+    <Sidebar />
+    <Main />
+  </AppLayout>
+)
 
 export default App;
