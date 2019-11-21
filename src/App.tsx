@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import Sidebar from './Sidebar';
-import Main from './Main';
+import Sidebar from "./containers/Sidebar";
+import Main from "./containers/Main";
 
 const AppLayout = styled.div`
   display: grid;
@@ -15,13 +15,13 @@ const AppLayout = styled.div`
   margin: 10px
   border: 5px solid gray;
   border-radius: 5px;
-`
+`;
 
 const App = () => (
   <AppLayout>
     <Sidebar />
     <Main />
   </AppLayout>
-)
+);
 
 export default App;

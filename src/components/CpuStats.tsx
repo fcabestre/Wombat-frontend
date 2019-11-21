@@ -2,7 +2,7 @@ import React from "react";
 
 import Label from "./Label";
 import styled from "styled-components";
-import { Cpu } from "./store/stats";
+import { Cpu } from "../store/stats";
 
 type CpuStatsPropType = {
   cpu?: Cpu;

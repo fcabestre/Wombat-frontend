@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import Label from './Label';
-import styled from 'styled-components';
+import Label from "./Label";
+import styled from "styled-components";
 
 type CpuListPropType = {
   cpuNames: Array<string>;
@@ -18,5 +18,5 @@ const CpuList = ({ className, onCpuClick, cpuNames }: CpuListPropType) => (
 );
 
 export default styled(CpuList)`
-grid-area: sidebar;
+  grid-area: sidebar;
 `;
