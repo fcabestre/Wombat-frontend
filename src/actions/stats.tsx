@@ -1,28 +1,33 @@
-import { Cpu } from '../store/stats';
+import { Cpu, ConnectionStatus } from '../store/stats';
 
-export type AddStatsAction = {
-    type: 'ADD_STATS'
-    cpuStats: Array<Cpu>
-}
-  
-export type SelectCpuAction = {
-    type: 'SELECT_CPU'
-    selectedCpu: string
-}
-  
-export type Action = AddStatsAction | SelectCpuAction
+export interface AddStatsAction {
+  type: "ADD_STATS";
+  cpuStats: Array<Cpu>;
+};
 
-export const addStatsAction = (cpuStats: Array<Cpu>) => (
-    {
-        type: 'ADD_STATS',
-        cpuStats
-    }   
-)
+export interface SelectCpuAction {
+  type: "SELECT_CPU";
+  selectedCpu: string;
+};
 
-export const selectCpuAction = (selectedCpu: string) => (
-    {
-        type: 'SELECT_CPU',
-        selectedCpu
-    }   
-)
-  
+export interface SetConnectionStatusAction {
+  type: "SET_CONNECTION_STATUS";
+  connectionStatus: ConnectionStatus;
+};
+
+export type Action = AddStatsAction | SelectCpuAction | SetConnectionStatusAction;
+
+export const addStatsAction = (cpuStats: Array<Cpu>): AddStatsAction => ({
+  type: "ADD_STATS",
+  cpuStats
+});
+
+export const selectCpuAction = (selectedCpu: string): SelectCpuAction => ({
+  type: "SELECT_CPU",
+  selectedCpu
+});
+
+export const setConnectionStatusAction = (connectionStatus: ConnectionStatus): SetConnectionStatusAction => ({
+  type: "SET_CONNECTION_STATUS",
+  connectionStatus
+});

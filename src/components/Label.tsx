@@ -1,13 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-type LabelPropsType = {
+interface LabelPropsType {
   children: string;
   onClick?: Function;
-};
+}
 
 const LabelDiv = styled.div`
   color: gray;
+  margin: 5px;
   ${props =>
     props.onClick &&
     css`

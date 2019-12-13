@@ -1,4 +1,4 @@
-export type Cpu = {
+export interface Cpu {
   name: string;
   user: number;
   nice: number;
@@ -9,12 +9,19 @@ export type Cpu = {
   softirq: number;
 };
 
-export type Store = {
+export enum ConnectionStatus {
+  Disconnected,
+  Connected
+}
+
+export interface Store {
+  connectionStatus: ConnectionStatus;
   selectedCpu: string | undefined;
   cpuStats: Array<Cpu>;
 };
 
 export const emptyStore: Store = {
+  connectionStatus: ConnectionStatus.Disconnected,
   selectedCpu: undefined,
   cpuStats: []
 };
@@ -24,3 +31,6 @@ export const getCpuNames = (state: Store) =>
 
 export const getCpuStats = (state: Store) =>
   state.cpuStats.find(({ name }) => state.selectedCpu === name);
+
+export const isConnected = (state: Store) =>
+  state.connectionStatus === ConnectionStatus.Connected;

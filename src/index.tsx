@@ -1,12 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, Dispatch } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createGlobalStyle } from "styled-components";
 
 import App from "./App";
 import statsReducer from "./reducers/stats";
+import {
+  addStatsAction,
+  Action,
+  setConnectionStatusAction
+} from "./actions/stats";
+import { ConnectionStatus } from "./store/stats";
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -20,63 +26,31 @@ body {
 }
 `;
 
-const initialStore = {
-  selectedCpu: undefined,
-  cpuStats: [
-    {
-      name: "cpu",
-      user: 4131912,
-      nice: 43485,
-      system: 887569,
-      idle: 18935824,
-      iowait: 51604,
-      irq: 0,
-      softirq: 102247
-    },
-    {
-      name: "cpu0",
-      user: 960234,
-      nice: 11659,
-      system: 231388,
-      idle: 15668752,
-      iowait: 40519,
-      irq: 0,
-      softirq: 35043
-    },
-    {
-      name: "cpu1",
-      user: 916500,
-      nice: 10916,
-      system: 214729,
-      idle: 690046,
-      iowait: 3149,
-      irq: 0,
-      softirq: 18904
-    },
-    {
-      name: "cpu2",
-      user: 1480248,
-      nice: 10422,
-      system: 249234,
-      idle: 1296362,
-      iowait: 4548,
-      irq: 0,
-      softirq: 45765
-    },
-    {
-      name: "cpu3",
-      user: 774928,
-      nice: 10486,
-      system: 192216,
-      idle: 1280662,
-      iowait: 3386,
-      irq: 0,
-      softirq: 2535
-    }
-  ]
+const wsconnect = (dispatch: Dispatch<Action>, url: string) => {
+  const ws = new WebSocket(url);
+
+  ws.onerror = function(error) {
+    dispatch(setConnectionStatusAction(ConnectionStatus.Disconnected));
+    setTimeout(wsconnect(dispatch, url), 2000);
+  };
+
+  ws.onclose = function() {
+    dispatch(setConnectionStatusAction(ConnectionStatus.Disconnected));
+    setTimeout(wsconnect(dispatch, url), 2000);
+  };
+
+  ws.onopen = function() {
+    dispatch(setConnectionStatusAction(ConnectionStatus.Connected));
+  };
+
+  ws.onmessage = function(message) {
+    const cpuStats = JSON.parse(message.data).cpus;
+    dispatch(addStatsAction(cpuStats));
+  };
 };
 
-const store = createStore(statsReducer, initialStore, composeWithDevTools());
+const store = createStore(statsReducer, composeWithDevTools());
+wsconnect(store.dispatch, "ws://localhost:3030/stats");
 
 ReactDOM.render(
   <Provider store={store}>

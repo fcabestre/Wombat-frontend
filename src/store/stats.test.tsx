@@ -1,7 +1,14 @@
 import React from "react";
-import { emptyStore, getCpuNames, getCpuStats } from "./stats";
+import {
+  emptyStore,
+  getCpuNames,
+  getCpuStats,
+  ConnectionStatus,
+  isConnected
+} from "./stats";
 
 const storeNoSelectedCpu = {
+  connectionStatus: ConnectionStatus.Connected,
   selectedCpu: undefined,
   cpuStats: [
     {
@@ -61,6 +68,14 @@ const store = {
   ...storeNoSelectedCpu,
   selectedCpu: "cpu2"
 };
+
+it("checks disconnection from an empty store", () => {
+  expect(isConnected(emptyStore)).toBeFalsy();
+});
+
+it("checks connection from a populated store", () => {
+  expect(isConnected(storeNoSelectedCpu)).toBeTruthy();
+});
 
 it("gets no cpu names from an empty store", () => {
   expect(getCpuNames(emptyStore)).toEqual([]);

@@ -4,7 +4,7 @@ import Label from "./Label";
 import styled from "styled-components";
 import { Cpu } from "../store/stats";
 
-type CpuStatsPropType = {
+interface CpuStatsPropType {
   cpu?: Cpu;
   className?: string;
 };

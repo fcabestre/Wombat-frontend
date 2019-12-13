@@ -7,6 +7,8 @@ const mapStateToProps = (state: Store) => ({
   cpu: getCpuStats(state)
 });
 
-const Main = connect(mapStateToProps, null)(CpuStats);
+const mapDispatchToProps = (dispatch: any) => ({});
+
+const Main = connect(mapStateToProps, mapDispatchToProps)(CpuStats);
 
 export default Main;
