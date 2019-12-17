@@ -1,32 +1,44 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+
 import Label from "./Label";
+import { ConnectionStatus as Status } from "../store/stats";
 
 export interface ConnectionStatusPropsType {
   className?: string;
-  isConnected: boolean;
+  connectionStatus: Status;
 }
 
-const ConnectionStatusDiv = styled.div<ConnectionStatusPropsType>`
+const stateColorEncoding = (status: Status) => {
+  switch (status) {
+    case Status.Connected:
+      return "green";
+    case Status.Disconnected:
+      return "orange";
+    case Status.Error:
+      return "red";
+  }
+};
+
+const Led = styled.div<ConnectionStatusPropsType>`
   width: 1em;
   height: 1em;
   border-radius: 50%;
-  background: ${props => (props.isConnected ? "green" : "orange")};
+  background: ${props => stateColorEncoding(props.connectionStatus)};
   margin: 5px;
 `;
 
 const ConnectionStatus = ({
-  isConnected,
+  connectionStatus,
   className
 }: ConnectionStatusPropsType) => (
   <div className={className}>
     <Label>Connection Status</Label>
-    <ConnectionStatusDiv isConnected={isConnected} />
+    <Led connectionStatus={connectionStatus} />
   </div>
 );
 
 export default styled(ConnectionStatus)`
-  grid-area: header;
   display: flex;
   align-items: center;
 `;

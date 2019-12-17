@@ -1,18 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, Dispatch } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createGlobalStyle } from "styled-components";
+import thunk from "redux-thunk";
 
 import App from "./App";
 import statsReducer from "./reducers/stats";
-import {
-  addStatsAction,
-  Action,
-  setConnectionStatusAction
-} from "./actions/stats";
-import { ConnectionStatus } from "./store/stats";
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -26,31 +21,10 @@ body {
 }
 `;
 
-const wsconnect = (dispatch: Dispatch<Action>, url: string) => {
-  const ws = new WebSocket(url);
-
-  ws.onerror = function(error) {
-    dispatch(setConnectionStatusAction(ConnectionStatus.Disconnected));
-    setTimeout(wsconnect(dispatch, url), 2000);
-  };
-
-  ws.onclose = function() {
-    dispatch(setConnectionStatusAction(ConnectionStatus.Disconnected));
-    setTimeout(wsconnect(dispatch, url), 2000);
-  };
-
-  ws.onopen = function() {
-    dispatch(setConnectionStatusAction(ConnectionStatus.Connected));
-  };
-
-  ws.onmessage = function(message) {
-    const cpuStats = JSON.parse(message.data).cpus;
-    dispatch(addStatsAction(cpuStats));
-  };
-};
-
-const store = createStore(statsReducer, composeWithDevTools());
-wsconnect(store.dispatch, "ws://localhost:3030/stats");
+const store = createStore(
+  statsReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>

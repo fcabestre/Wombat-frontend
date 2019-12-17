@@ -1,13 +1,9 @@
-import React from "react";
-import {
-  emptyStore,
-  getCpuNames,
-  getCpuStats,
-  ConnectionStatus,
-  isConnected
-} from "./stats";
+import React from 'react';
+
+import { ConnectionStatus, emptyStore, getCpuNames, getCpuStats, isConnected } from './stats';
 
 const storeNoSelectedCpu = {
+  socket: undefined,
   connectionStatus: ConnectionStatus.Connected,
   selectedCpu: undefined,
   cpuStats: [

@@ -6,13 +6,13 @@ import styled from "styled-components";
 interface CpuListPropType {
   cpuNames: Array<string>;
   className?: string;
-  onCpuClick: Function;
-};
+  selectCpu: Function;
+}
 
-const CpuList = ({ className, onCpuClick, cpuNames }: CpuListPropType) => (
+const CpuList = ({ className, selectCpu, cpuNames }: CpuListPropType) => (
   <div className={className}>
     {cpuNames.map(cpuName => (
-      <Label key={cpuName} onClick={() => onCpuClick(cpuName)}>
+      <Label key={cpuName} onClick={() => selectCpu(cpuName)}>
         {cpuName}
       </Label>
     ))}

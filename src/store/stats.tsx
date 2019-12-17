@@ -7,20 +7,23 @@ export interface Cpu {
   idle: number;
   irq: number;
   softirq: number;
-};
+}
 
 export enum ConnectionStatus {
   Disconnected,
-  Connected
+  Connected,
+  Error
 }
 
 export interface Store {
+  socket: WebSocket | undefined;
   connectionStatus: ConnectionStatus;
   selectedCpu: string | undefined;
   cpuStats: Array<Cpu>;
-};
+}
 
 export const emptyStore: Store = {
+  socket: undefined,
   connectionStatus: ConnectionStatus.Disconnected,
   selectedCpu: undefined,
   cpuStats: []

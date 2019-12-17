@@ -1,15 +1,19 @@
 import { connect } from "react-redux";
 
-import ConnectionStatus from "../components/ConnectionStatus";
-import { Store, isConnected } from "../store/stats";
-import { ConnectionStatusPropsType } from "../components/ConnectionStatus";
+import Connection from "../components/Connection";
+import { Store } from "../store/stats";
+import { wsconnect } from "../actions/websocket";
 
-const mapStateToProps = (state: Store): ConnectionStatusPropsType => ({
-  isConnected: isConnected(state)
+const mapStateToProps = (state: Store) => ({
+  connectionStatus: state.connectionStatus
 });
 
-const mapDispatchToProps = (dispatch: any) => ({});
+const mapDispatchToProps = (dispatch: any) => ({
+  connect: (host: string, port: string) => {
+    dispatch(wsconnect(host, port));
+  }
+});
 
-const Header = connect(mapStateToProps, mapDispatchToProps)(ConnectionStatus);
+const Header = connect(mapStateToProps, mapDispatchToProps)(Connection);
 
 export default Header;

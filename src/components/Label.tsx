@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 interface LabelPropsType {
-  children: string;
+  children?: string;
   onClick?: Function;
 }
 

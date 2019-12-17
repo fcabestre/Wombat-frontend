@@ -18,6 +18,11 @@ const statsReducer = (state: Store = emptyStore, action: Action) => {
         ...state,
         connectionStatus: action.connectionStatus
       };
+    case "SET_SOCKET":
+      return {
+        ...state,
+        socket: action.socket
+      };
     default:
       return state;
   }
