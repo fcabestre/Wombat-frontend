@@ -1,6 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { ConnectionStatus, emptyStore, getCpuNames, getCpuStats, isConnected } from './stats';
+import {
+  ConnectionStatus,
+  emptyStore,
+  getCpuNames,
+  getSelectedCpuStats
+} from "./stats";
 
 const storeNoSelectedCpu = {
   socket: undefined,
@@ -65,14 +70,6 @@ const store = {
   selectedCpu: "cpu2"
 };
 
-it("checks disconnection from an empty store", () => {
-  expect(isConnected(emptyStore)).toBeFalsy();
-});
-
-it("checks connection from a populated store", () => {
-  expect(isConnected(storeNoSelectedCpu)).toBeTruthy();
-});
-
 it("gets no cpu names from an empty store", () => {
   expect(getCpuNames(emptyStore)).toEqual([]);
 });
@@ -88,15 +85,15 @@ it("gets no some names from a populated store", () => {
 });
 
 it("gets no stats from an empty store", () => {
-  expect(getCpuStats(emptyStore)).toBeUndefined;
+  expect(getSelectedCpuStats(emptyStore)).toBeUndefined;
 });
 
 it("gets no stats from a populated store without selected cpu", () => {
-  expect(getCpuStats(storeNoSelectedCpu)).toBeUndefined;
+  expect(getSelectedCpuStats(storeNoSelectedCpu)).toBeUndefined;
 });
 
 it("gets some stats from a populated store with a selected cpu", () => {
-  expect(getCpuStats(store)).toEqual({
+  expect(getSelectedCpuStats(store)).toEqual({
     name: "cpu2",
     user: 1480248,
     nice: 10422,

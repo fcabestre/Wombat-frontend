@@ -4,15 +4,25 @@ import Label from "./Label";
 import styled from "styled-components";
 
 interface CpuListPropType {
-  cpuNames: Array<string>;
   className?: string;
-  selectCpu: Function;
+  cpuNames: Array<string>;
+  selectedCpu: string;
+  doSelect: Function;
 }
 
-const CpuList = ({ className, selectCpu, cpuNames }: CpuListPropType) => (
+const CpuList = ({
+  className,
+  doSelect,
+  cpuNames,
+  selectedCpu
+}: CpuListPropType) => (
   <div className={className}>
     {cpuNames.map(cpuName => (
-      <Label key={cpuName} onClick={() => selectCpu(cpuName)}>
+      <Label
+        key={cpuName}
+        highlight={selectedCpu === cpuName}
+        onClick={() => doSelect(cpuName)}
+      >
         {cpuName}
       </Label>
     ))}

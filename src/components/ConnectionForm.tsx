@@ -1,19 +1,18 @@
 import React, { FormEventHandler } from "react";
-import styled from "styled-components";
 
 import Label from "./Label";
+import  Line  from "./Line";
 
 export interface ConnectionFormPropsType {
-  className?: string;
   connect: Function;
   host: string;
   port: string;
 }
+
 const ConnectionForm = ({
   host,
   port,
   connect,
-  className
 }: ConnectionFormPropsType) => {
   let inputHost: HTMLInputElement | null;
   let inputPort: HTMLInputElement | null;
@@ -30,27 +29,27 @@ const ConnectionForm = ({
   };
 
   return (
-    <form onSubmit={handler} className={className}>
-      <Label>Host</Label>
-      <input
-        type="text"
-        ref={node => (inputHost = node)}
-        name="host"
-        defaultValue={host}
-      ></input>
-      <Label>Port</Label>
-      <input
-        type="text"
-        ref={node => (inputPort = node)}
-        name="port"
-        defaultValue={port}
-      ></input>
-      <Label></Label>
-      <button type="submit">Connect</button>
+    <form onSubmit={handler} className="ConnectionForm">
+      <Line>
+        <Label>Host</Label>
+        <input
+          type="text"
+          ref={node => (inputHost = node)}
+          name="host"
+          defaultValue={host}
+        ></input>
+        <Label>Port</Label>
+        <input
+          type="text"
+          ref={node => (inputPort = node)}
+          name="port"
+          defaultValue={port}
+        ></input>
+        <Label></Label>
+        <button type="submit">Connect</button>
+      </Line>
     </form>
   );
 };
 
-export default styled(ConnectionForm)`
-  display: flex;
-`;
+export default ConnectionForm

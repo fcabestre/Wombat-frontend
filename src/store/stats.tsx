@@ -32,8 +32,5 @@ export const emptyStore: Store = {
 export const getCpuNames = (state: Store) =>
   state.cpuStats.map(({ name }) => name);
 
-export const getCpuStats = (state: Store) =>
+export const getSelectedCpuStats = (state: Store) =>
   state.cpuStats.find(({ name }) => state.selectedCpu === name);
-
-export const isConnected = (state: Store) =>
-  state.connectionStatus === ConnectionStatus.Connected;

@@ -12,7 +12,7 @@ export interface ConnectionPropsType {
 }
 
 const Connection = ({
-    connectionStatus,
+  connectionStatus,
   className,
   connect
 }: ConnectionPropsType) => (

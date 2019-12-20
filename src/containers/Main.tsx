@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 
 import CpuStats from "../components/CpuStats";
-import { Store, getCpuStats } from "../store/stats";
+import { Store, getSelectedCpuStats } from "../store/stats";
 import { Dispatch } from "react";
 import { Action } from "../actions/stats";
 
 const mapStateToProps = (state: Store) => ({
-  cpu: getCpuStats(state)
+  cpu: getSelectedCpuStats(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({});

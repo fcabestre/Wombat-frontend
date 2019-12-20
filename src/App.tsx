@@ -7,8 +7,8 @@ import Header from "./containers/Header";
 
 const AppLayout = styled.div`
   display: grid;
-  grid-template-columns: 25vw auto;
-  grid-template-rows: auto;
+  grid-template-columns: 10vw auto auto auto;
+  grid-template-rows: repeat(3, auto);
   grid-template-areas:
     "header header header header"
     "sidebar main main main"

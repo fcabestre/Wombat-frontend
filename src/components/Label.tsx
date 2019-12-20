@@ -4,11 +4,13 @@ import styled, { css } from "styled-components";
 interface LabelPropsType {
   children?: string;
   onClick?: Function;
+  highlight?: boolean;
 }
 
-const LabelDiv = styled.div`
-  color: gray;
+const LabelDiv = styled.div<LabelPropsType>`
   margin: 5px;
+  color: ${props => (props.highlight ? "white" : "gray")};
+  background: ${props => (props.highlight ? "gray" : "white")};
   ${props =>
     props.onClick &&
     css`
@@ -16,8 +18,12 @@ const LabelDiv = styled.div`
     `}
 `;
 
-const Label = ({ children, onClick }: LabelPropsType) => (
-  <LabelDiv className="Label" onClick={onClick ? () => onClick() : undefined}>
+const Label = ({ children, onClick, highlight }: LabelPropsType) => (
+  <LabelDiv
+    className="Label"
+    highlight={highlight}
+    onClick={onClick ? () => onClick() : undefined}
+  >
     {children}
   </LabelDiv>
 );

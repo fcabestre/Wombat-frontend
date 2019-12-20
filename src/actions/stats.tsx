@@ -1,4 +1,4 @@
-import { Cpu, ConnectionStatus } from "../store/stats";
+import { ConnectionStatus, Cpu } from "../store/stats";
 
 export interface AddStatsAction {
   type: "ADD_STATS";
