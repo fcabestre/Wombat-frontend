@@ -1,13 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { createGlobalStyle } from "styled-components";
-import thunk from "redux-thunk";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import { createGlobalStyle } from 'styled-components';
 
-import App from "./App";
-import statsReducer from "./reducers/stats";
+import { Action } from './actions/stats';
+import App from './App';
+import { stats } from './reducers/stats';
+import { Store } from './store/stats';
+import { connection } from './reducers/connection';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -21,8 +24,13 @@ body {
 }
 `;
 
+const combinedReducer = combineReducers<Store, Action>({
+  stats,
+  connection
+})
+
 const store = createStore(
-  statsReducer,
+  combinedReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
 

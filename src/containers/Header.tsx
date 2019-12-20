@@ -6,7 +6,7 @@ import Connection from "../components/Connection";
 import { Store } from "../store/stats";
 
 const mapStateToProps = (state: Store) => ({
-  connectionStatus: state.connectionStatus
+  connectionStatus: state.connection.connectionStatus
 });
 
 const mapDispatchToProps = (dispatch: ThDispatch) => ({

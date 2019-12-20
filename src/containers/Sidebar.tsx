@@ -7,7 +7,7 @@ import { Dispatch } from "react";
 
 const mapStateToProps = (state: Store) => ({
   cpuNames: getCpuNames(state),
-  selectedCpu: state.selectedCpu
+  selectedCpu: state.stats.selectedCpu
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
